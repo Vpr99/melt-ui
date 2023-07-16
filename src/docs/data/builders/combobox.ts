@@ -8,7 +8,7 @@ const builder: APISchema = {
 	props: [
 		{
 			name: 'filterFunction',
-			type: '(item: T, inputValue: string)',
+			type: '(item: T, inputValue: string) => boolean',
 			description:
 				'A function that returns `true` if the item should be included in the filtered list.',
 		},
@@ -19,8 +19,8 @@ const builder: APISchema = {
 		},
 		{
 			name: 'itemToString',
-			type: '(item: T)',
-			description: 'A function that returns a string representation of the item.',
+			type: '(item: T) => string',
+			description: 'A function that returns the string representation of an item.',
 		},
 		{
 			name: 'loop',
@@ -40,7 +40,7 @@ const builder: APISchema = {
 		{
 			name: 'filteredItems',
 			type: 'Readable<T[]>',
-			description: 'A derived store that returns the filtered list of items.',
+			description: 'A derived store that returns items that match the given `filterFunction`.',
 		},
 		{
 			name: 'updateItems',
@@ -80,7 +80,7 @@ const builder: APISchema = {
 		},
 		{
 			name: 'input',
-			description: 'The builder store used to create the collapsible input.',
+			description: 'The Melt builder store used to create the text input.',
 			link: '#input',
 		},
 		{
@@ -181,24 +181,24 @@ const arrow: APISchema = {
 const keyboard: KeyboardSchema = [
 	{
 		key: KBD.ENTER,
-		behavior: 'selects the highlighted list item.',
+		behavior: 'Selects the highlighted list item.',
 	},
 	{
 		key: KBD.ARROW_DOWN,
 		behavior: 'Highlights the next list item.',
 	},
-	// {
-	// 	key: 'PageDown',
-	// 	behavior: 'Highlights 10 list items down (or the end of the list).',
-	// },
+	{
+		key: 'PageDown',
+		behavior: 'Highlights 10 list items down (or the end of the list).',
+	},
 	{
 		key: KBD.ARROW_UP,
 		behavior: 'Highlights the previous list item.',
 	},
-	// {
-	// 	key: 'PageUp',
-	// 	behavior: 'Highlights 10 list items up (or the top of the list).',
-	// },
+	{
+		key: 'PageUp',
+		behavior: 'Highlights 10 list items up (or the beginning of the list).',
+	},
 	{
 		key: KBD.HOME,
 		behavior: 'Highlights the first list item',

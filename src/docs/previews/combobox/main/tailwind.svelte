@@ -104,8 +104,10 @@
 	class="z-10 flex max-h-[300px] flex-col overflow-hidden rounded-md"
 	melt={$menu}
 >
-	<ul class="flex max-h-full flex-col gap-2 overflow-y-auto bg-white px-2 py-2">
-		{#if $open}
+	{#if $open}
+		<ul
+			class="flex max-h-full flex-col gap-2 overflow-y-auto bg-white px-2 py-2"
+		>
 			{#if $filteredItems.length !== 0}
 				{#each $filteredItems as book, index (index)}
 					<li
@@ -138,8 +140,8 @@
 					No results found
 				</li>
 			{/if}
-		{/if}
-	</ul>
+		</ul>
+	{/if}
 </div>
 
 <style lang="postcss">

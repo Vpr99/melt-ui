@@ -419,15 +419,66 @@ export function createCombobox<T>(props: CreateComboboxProps<T>) {
 	});
 
 	return {
+		/** A derived store that returns items that match the given `filterFunction`. */
 		filteredItems: readonly(filteredItems),
-		updateItems,
-		inputValue,
-		isSelected,
-		selectedItem,
-		options,
-		open,
-		menu,
+		/**
+		 * The Melt builder store used to create the text input.
+		 * ```svelte
+		 * <input melt={$input} />
+		 * ```
+		 */
 		input,
+		/** A writable store that controls the value of the input. */
+		inputValue,
+		/**
+		 * A derived store that returns a function that returns whether or not the item is selected.
+		 * ```svelte
+		 * {#if $isSelected(item)}
+		 *   <Check />
+		 * {/if}
+		 * ```
+		 */
+		isSelected,
+		/**
+		 * The Melt builder store used to create a menu item.
+		 * ```svelte
+		 * {#each $filteredItems as book, index (index)}
+		 *   <li melt={$item({ index, item: book })}>
+		 *     <span>{book.title}</span>
+		 *   </li>
+		 * {/each}
+		 * ```
+		 */
 		item,
+		/**
+		 * The Melt builder store used to create the collapsible menu.
+		 * ```svelte
+		 * <ul melt={$menu}>
+		 *  {#if $open}
+		 *   <!-- ... -->
+		 *  {/if}
+		 * </ul>
+		 * ```
+		 */
+		menu,
+		/** Is the menu currently open? */
+		open,
+		/** A writable store with the options used to create the combobox. */
+		options,
+		/** The currently selected item. */
+		selectedItem,
+		/**
+		 * Function to update the items in the combobox. It provides the current
+		 * items as an argument and expects an updated list in return.
+		 *
+		 * The updated list is set in both `items` and `filteredItems` stores so
+		 * that the filterFunction predicate is applied to any added items.
+		 * ```ts
+		 * function addNewBook(book: Book) {
+		 *   updateItems((books) => [...books, book]);
+		 * };
+		 * ```
+		 */
+		updateItems,
 	};
 }
